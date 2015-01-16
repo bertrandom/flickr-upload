@@ -1,0 +1,20 @@
+{
+  "name": "flickr-upload-simple",
+  "version": "1.0.0",
+  "description": "A simple Flickr uploader using OAuth that supports files, streams, and buffers.",
+  "main": "index.js",
+  "dependencies": {
+    "isstream": "^0.1.1",
+    "mime-sniffer": "0.0.3",
+    "node-uuid": "^1.4.2",
+    "oauth-sign": "^0.6.0",
+    "request": "^2.51.0",
+    "xml-parser": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bertrand Fan <bertrand@fan.net> (http://thatsaspicymeatball.com/)",
+  "license": "MIT"
+}
