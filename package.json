@@ -16,5 +16,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Bertrand Fan <bertrand@fan.net> (http://thatsaspicymeatball.com/)",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/bertrandom/flickr-upload.git"
+  }  
 }
