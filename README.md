@@ -101,9 +101,15 @@ flickr.upload(fs.readFileSync('./test.jpg'));
 ### request stream
 
 ```
-var fs = require('fs');
 var request = require('request');
 flickr.upload(request('https://farm9.staticflickr.com/8623/16015386389_872d309a89_z.jpg'));
+```
+
+Don't use the filename from the stream:
+
+```
+var request = require('request');
+flickr.upload(request('https://farm9.staticflickr.com/8623/16015386389_872d309a89_z.jpg'), {strip_filename: true});
 ```
 
 ### readable stream

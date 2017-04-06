@@ -1,6 +1,6 @@
 {
   "name": "flickr-upload",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple Flickr uploader using OAuth that supports files, streams, and buffers.",
   "main": "index.js",
   "dependencies": {

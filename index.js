@@ -177,7 +177,12 @@ function upload(photo, uploadConfig, callback) {
 
 	} else if (photo && (isReadable(photo) || photo.__isRequestRequest)) {
 
-		form.append('photo', photo);
+		var streamParams = {};
+		if (uploadConfig && uploadConfig.strip_filename) {
+			streamParams.filename = ' ';
+		}
+
+		form.append('photo', photo, streamParams);
 		appendParams();
 
 	} else {
