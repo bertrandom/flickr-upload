@@ -112,7 +112,10 @@ function upload(photo, uploadConfig, callback) {
 	var uri = url + '?' + queryString + "&oauth_signature=" + encodeURIComponent(photoOptions.oauth_signature);
 
 	var req = request.post({
-		url: uri
+		url: uri,
+		headers: {
+			"User-Agent": "phil asked me to put something here (KHTML, like Gecko)/1.0"
+		}
 	}, function (err, response, body) {
 
 		if (err) {

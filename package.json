@@ -1,6 +1,6 @@
 {
   "name": "flickr-upload",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple Flickr uploader using OAuth that supports files, streams, and buffers.",
   "main": "index.js",
   "dependencies": {
@@ -18,7 +18,7 @@
   "author": "Bertrand Fan <bertrand@fan.net> (http://thatsaspicymeatball.com/)",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/bertrandom/flickr-upload.git"
-  }  
+    "type": "git",
+    "url": "https://github.com/bertrandom/flickr-upload.git"
+  }
 }
