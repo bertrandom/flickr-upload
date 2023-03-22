@@ -8,26 +8,33 @@ var fs = require('fs'),
 
 var oauthConfig = {};
 
+function _parseXML(xml, domID, isFetchAttr) {
+    var parsed = parse(xml);
+
+    var returnData = null;
+    var fetchData = (isFetchAttr ? "attributes" : "content");
+
+    if (parsed && parsed.root && parsed.root.children) {
+
+        parsed.root.children.forEach(function(child) {
+
+            if (child.name === domID) {
+                returnData = child[fetchData];
+            }
+
+        });
+
+    }
+
+    return returnData;
+}
+
 function getPhotoIdFromXML(xml) {
+	return _parseXML(xml,'photoid',false)
+}
 
-	var parsed = parse(xml);
-
-	var photoId = null;
-
-	if (parsed && parsed.root && parsed.root.children) {
-
-		parsed.root.children.forEach(function (child) {
-
-			if (child.name === 'photoid') {
-				photoId = child.content;
-			}
-
-		});
-
-	}
-
-	return photoId;
-
+function getInfoFromXML(xml) {
+	return _parseXML(xml,'photo',true)
 }
 
 function getErrorFromXML(xml) {
@@ -69,6 +76,56 @@ function formQueryString(queryArguments) {
 	return args.join("&");
 
 }
+
+
+/**
+ * After finishing upload, to get the download link(url) 
+ * or more information. Download url role is as below:
+ * https://www.flickr.com/services/api/misc.urls.html
+ */
+function getInfo(photoid,callback) {
+
+    if (typeof callback === 'undefined') {
+        callback = function() {};
+    }
+
+
+    var url = "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo";
+
+    var queryString = "api_key="+oauthConfig.consumer_key
+    +"&photo_id="+photoid
+
+    var uri = url + '&' + queryString
+
+    var req = request.get({
+        url: uri
+    }, function(err, response, body) {
+
+        if (err) {
+            return callback(err);
+        }
+
+        var parsed = parse(body);
+
+        if (!(parsed && parsed.root && parsed.root.attributes && parsed.root.attributes.stat)) {
+            return callback(new Error('Could not parse response.'));
+        }
+
+        var stat = parsed.root.attributes.stat;
+
+        if (stat === 'fail') {
+            return callback(new Error(getErrorFromXML(body)));
+        }
+
+        var returnB = getInfoFromXML(body);
+
+        return callback(null, returnB);
+
+    });
+
+}
+
+
 
 function upload(photo, uploadConfig, callback) {
 
@@ -242,7 +299,8 @@ module.exports = function (oauth) {
 	}
 
 	return {
-		upload: upload
+		upload: upload,
+  getInfo: getInfo
 	};
 
 };
